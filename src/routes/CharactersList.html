@@ -1,0 +1,177 @@
+<AppBarModifier title="STAR WARS - LIST" />
+
+<main class="characters">
+  <h1 class="characters__title">Star Wars characters that have passed through here.</h1>
+  <p class="characters__info">TOTAL: {people.length}</p>
+  {#if people.length}
+    <ul>
+      {#each people as person}
+        <li class="characters__item">
+          <h2 class="characters__subtitle">{person.name}</h2>
+          <p class="characters__infodate">Date: {person.date}</p>
+          <Button on:click="showMore(person.url)" size="small" bgColor="#333">show more</Button>
+        </li>
+      {/each}
+    </ul>
+  {:else}
+    <ul>
+      <li class="characters__none">Until now no one showed up <p class="characters__emoji">:(</p></li>
+    </ul>
+  {/if}
+
+  <div class="result">
+    {#if hasPerson}
+      <ul>
+        <li>
+          <p><strong>Name:</strong> { person.name }</p>
+        </li>
+        <li>
+          <p><strong>Gender:</strong> { person.gender }</p>
+        </li>
+        <li>
+          <p><strong>Birth Year:</strong> { person.birth_year }</p>
+        </li>
+        <li>
+          <p><strong>Height:</strong> { person.height }</p>
+        </li>
+        <li>
+          <p><strong>Mass:</strong> { person.mass }</p>
+        </li>
+        <li>
+          <p><strong>Hair Color:</strong> { person.hair_color }</p>
+        </li>
+        <li>
+          <p><strong>Skin Color:</strong> { person.skin_color }</p>
+        </li>
+        <li>
+          <p><strong>Eye Color:</strong> { person.eye_color }</p>
+        </li>
+      </ul>
+    {:else}
+      <ul>
+        {#if !error}
+          {#if loader}
+            <li class="loader"><CircularProgress speed={10} height="25"/></li>
+          {:else}
+            <li>No data.</li>
+          {/if}
+        {:else}
+          <li class="error">Oops! something went wrong, please try again.</li>
+        {/if}
+      </ul>
+    {/if}
+  </div>
+</main>
+
+
+
+<a href="/challenge">
+  <Button bottom size="full">Return</Button>
+</a>
+
+<script>
+  import Storage from '@mamba/pos/api/storage.js';
+
+  export default {
+    components: {
+      AppBarModifier: '@mamba/appbar/Modifier.html',
+      Button: '@mamba/button',
+      CircularProgress: '@mamba/progress/Circular.html',
+    },
+    data() {
+      return {
+        people: [],
+        person: {},
+        hasPerson: false,
+        loader: false,
+        error: false,
+      };
+    },
+    oncreate() {
+      this.checkPeople();
+    },
+    methods: {
+      checkPeople() {
+        const people = Storage.getItem('people');
+        if (people) {
+          this.set({ people });
+        }
+      },
+      async showMore(url) {
+        try {
+          this.set({ loader: true });
+          const response = await fetch(url);
+          const person = await response.json();
+
+          this.set({ person, hasPerson: true, loader: false });
+        } catch (e) {
+          console.log(e);
+          this.set({ error: true, loader: false });
+        }
+      },
+    },
+  };
+</script>
+
+<style type="text/postcss">
+  h1,
+  h2 {
+    margin: 0;
+  }
+
+  .characters {
+    padding: 1rem;
+    margin-bottom: 3rem;
+  }
+
+  .characters__title {
+    font-size: 1.384rem;
+  }
+
+  .characters__subtitle {
+    font-size: 1.25rem;
+  }
+
+  .characters__info {
+    padding: 1rem 0;
+    text-align: center;
+    font-weight: 700;
+  }
+
+  .characters__none {
+    text-align: center;
+  }
+
+  .characters__emoji {
+    font-size: 1.5rem;
+    padding: 0.4rem 0;
+  }
+
+  .characters__infodate {
+    padding: 0.4rem 0;
+  }
+
+  .characters__item {
+    padding: 1rem 0;
+    border-bottom: 1px solid #000;
+  }
+
+  .characters__item:last-child {
+    border-bottom: none;
+  }
+
+  .result {
+    margin: 1rem 0;
+    padding: 0.4rem;
+    border: 1px solid #000;
+  }
+
+  .result li {
+    padding: 0.4rem 0;
+  }
+
+  .loader,
+  .error {
+    text-align: center;
+  }
+</style>
