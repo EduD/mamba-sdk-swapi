@@ -82,6 +82,7 @@
     "@mamba/icon": "^2.6.4",
     "@mamba/pos": "^2.6.4",
     "@mamba/printable": "^2.6.4",
+    "@mamba/progress": "^2.7.2",
     "@mamba/styles": "^2.6.4",
     "immer": "^2.0.0",
     "svelte": "2.16.1",
