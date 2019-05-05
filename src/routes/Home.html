@@ -1,18 +1,86 @@
-<AppBarModifier title="Home" />
+<AppBarModifier title="STAR WARS" />
 
-<p>Hello Mamba SDK!</p>
+<header class="section header">
+  <img class="header__logo" src="./assets/starwars.png" alt="logo">
+  <h1 class="section__title">Front-end Challenge</h1>
+  <h2 class="section__subtitle">Mamba SDK</h2>
+</header>
+
+<main class="section">
+  <h1 class="section__title pad-y-small">Introduction</h1>
+  <p class="section__text pad-y-small">Hello! Now you can better control your customers on the space station.
+  instructions below.</p>
+
+  <h2 class="section__subtitle pad-y-small">English</h2>
+  <ul class="help__list">
+    <li class="pad-y-small"><strong>Yellow Button(GENERATE):</strong> Show a single random Star Wars character.</li>
+    <li class="pad-y-small"><strong>Blue Button(PRINT):</strong> Prints a single Star Wars character.</li>
+    <li class="pad-y-small"><strong>Black Button(LIST):</strong> Show a list of all Star Wars characters that have passed through here.</li>
+  </ul>
+
+  <h2 class="section__subtitle pad-y-small">Português</h2>
+  <ul class="help__list">
+    <li class="pad-y-small"><strong>Botão Amarelo(GERAR):</strong> Mostra um personagem aleatório de Star Wars.</li>
+    <li class="pad-y-small"><strong>Botão Azul(IMPRIMIR):</strong> Imprime um personagem de Star Wars.</li>
+    <li class="pad-y-small"><strong>Botão Preto(LISTAR):</strong> Mostra uma Slista com todos os personagens de Star Wars que já pasaram por aqui.</li>
+  </ul>
+</main>
+
+<a href="/challenge">
+  <Button size="full">Start</Button>
+</a>
 
 <script>
   export default {
     components: {
       AppBarModifier: '@mamba/appbar/Modifier.html',
+      Button: '@mamba/button',
     },
   };
 </script>
 
 <style type="text/postcss">
-  p {
-    padding: 20px;
-    font-size: 22px;
+  h1,
+  h2 {
+    margin: 0;
+  }
+
+  .section {
+    padding: 1rem 0.4rem;
+  }
+
+  .section__title {
+    font-size: 1.384rem;
+  }
+
+  .section__subtitle {
+    font-size: 1.25rem;
+  }
+
+  .section__text {
+    font-size: 1rem;
+    line-height: 1.25em;
+  }
+
+  .header {
+    border-bottom: 1px solid #000;
+    text-align: center;
+  }
+
+  .header__logo {
+    display: block;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .pad-y-small {
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+  }
+
+  .help__list {
+    border: 1px dashed #000;
+    padding: 0.4rem;
+    margin-bottom: 1rem;
   }
 </style>
