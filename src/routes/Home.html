@@ -1,31 +1,11 @@
 <AppBarModifier title="Home" />
 
-<p>
-  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-  <br>
-  <br>
-  <a href="/about">About</a>
-</p>
-
-<Printable ref:printable>
-  Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga unde dicta at quisquam doloremque sunt soluta architecto debitis, sit quidem placeat qui nam expedita quod, mollitia suscipit porro saepe recusandae.
-</Printable>
-
-<Button
-  size="full"
-  bottom
-  on:click="refs.printable.print()"
-  shortcut="enter"
->
-  Imprimir! (press. enter)
-</Button>
+<p>Hello Mamba SDK!</p>
 
 <script>
   export default {
     components: {
       AppBarModifier: '@mamba/appbar/Modifier.html',
-      Printable: '@mamba/printable',
-      Button: '@mamba/button',
     },
   };
 </script>
