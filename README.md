@@ -1,10 +1,29 @@
-# Mamba App template
+<p align="center"><img src="https://i.ibb.co/9gjsz5V/starwars.png"></p>
+
+# Front-end Challenge - Star Wars API
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/stone-payments/pos-mamba-app-template.svg)](https://greenkeeper.io/)
 
-> A complete project template for building [Mamba](https://github.com/stone-payments/pos-mamba) apps.
+## Introduction
+Hello! Now you can better control your customers on the space station.
 
-## Requirements
+#### Yellow Button
+> Show a single random Star Wars character.
+<p align="center"><img src="https://i.ibb.co/CmvsGvY/generate.gif"></p>
+
+#### Blue Button
+> Prints a single Star Wars character.
+<p align="center"><img src="https://i.ibb.co/2vdpvcy/print.gif"></p>
+
+#### Black Button
+> Show a list of all Star Wars characters that have passed through here.
+<p align="center"><img src="https://i.ibb.co/8jFjzHQ/list.gif"></p>
+
+---
+### Mamba App template
+>A complete project template for building [Mamba](https://github.com/stone-payments/pos-mamba) apps.
+
+### Requirements
 
 Make sure all dependencies have been installed before moving on:
 
@@ -14,46 +33,7 @@ Recommended:
 
 - [@mamba/cli](https://www.npmjs.com/package/@mamba/cli)
 
-## Creating a new Mamba App
-
-### With `@mamba/cli`
-
-```shell
-# Install the mamba cli globally if doesn't already have it
-npm i -g @mamba/cli
-
-# Create a new mamba app at 'my-mamba-app' directory
-mamba new app my-mamba-app
-
-? Name: My Mamba App
-? Version: 0.0.1
-? Description: My new Mamba app
-
-# Enter the app directory
-cd my-mamba-app
-
-# Start the development server
-mamba app start
-```
-
-### Manually
-
-```shell
-# Create and enter your new app directory
-mkdir my-mamba-app
-cd my-mamba-app
-
-# Install the standard mamba app template
-npx degit stone-payments/pos-mamba-app-template
-
-# Install its dependencies with 'yarn'
-npm i
-
-# Run the development server
-npm run start
-```
-
-## Building and deploying to the `POS`
+### Building and deploying to the `POS`
 
 1. Generate the *production* app bundle
 
@@ -85,6 +65,7 @@ npm run serve # Starts the local http server
 - `npm run lint` - Lint all style and script files;
 - `npm run format` - Format all style and script files;
 
-## Documentation
+### Documentation
 
 - [Svelte](https://svelte.technology/guide)
+- [Mamba SDK](https://mambasdk-docs.stone.com.br/)
