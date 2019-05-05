@@ -1,0 +1,246 @@
+<AppBarModifier title="STAR WARS - GENERATE" />
+
+<div class="person">
+  <ul>
+    {#if hasPerson}
+      <li class="person__item">
+        <h1 class="person__title">{ person.name }</h1>
+      </li>
+      <li class="person__item">
+        <p class="person__info"><strong>Gender:</strong> { person.gender }</p>
+      </li>
+      <li class="person__item">
+        <p class="person__info"><strong>Birth Year:</strong> { person.birth_year }</p>
+      </li>
+      <li class="person__item">
+        <p class="person__info"><strong>Height:</strong> { person.height }</p>
+      </li>
+      <li class="person__item">
+        <p class="person__info"><strong>Mass:</strong> { person.mass }</p>
+      </li>
+      <li class="person__item">
+        <p class="person__info"><strong>Hair Color:</strong> { person.hair_color }</p>
+      </li>
+      <li class="person__item">
+        <p class="person__info"><strong>Skin Color:</strong> { person.skin_color }</p>
+      </li>
+      <li class="person__item">
+        <p class="person__info"><strong>Eye Color:</strong> { person.eye_color }</p>
+      </li>
+      <li class="person__item">
+        <p class="person__info"><strong>Home World:</strong> { person.homeworld }</p>
+      </li>
+      <li class="person__item">
+        <p class="person__info"><strong>Films:</strong></p>
+        <ul>
+          {#each person.films as film}
+            <li class="person__item"><p class="person__info">{film}</p></li>
+          {/each}
+        </ul>
+      </li>
+      <li class="person__item">
+        <p class="person__info"><strong>Species:</strong></p>
+        <ul>
+          {#each person.species as specie}
+            <li class="person__item"><p class="person__info">{specie}</p></li>
+          {/each}
+        </ul>
+      </li>
+      <li class="person__item">
+        <p class="person__info"><strong>Vehicles:</strong></p>
+        <ul>
+        {#if person.vehicles.length}
+          {#each person.vehicles as vehicle}
+            <li class="person__item"><p class="person__info">{vehicle}</p></li>
+          {/each}
+        {:else}
+          <li class="person__item">None</li>
+        {/if}
+        </ul>
+      </li>
+      <li>
+        <p class="person__info"><strong>Starships:</strong></p>
+        <ul>
+        {#if person.starships.length}
+          {#each person.starships as starship}
+            <li class="person__item"><p class="person__info">{starship}</p></li>
+          {/each}
+        {:else}
+          <li class="person__item">None</li>
+        {/if}
+        </ul>
+      </li>
+      <li class="person__item">
+        <p class="person__info"><strong>Created:</strong> { person.created }</p>
+      </li>
+      <li class="person__item">
+        <p class="person__info"><strong>Edited:</strong> { person.edited }</p>
+      </li>
+      <li class="person__item">
+        <p class="person__info"><strong>URL:</strong> <a href={ person.url } target="_blank">click here</a></p>
+      </li>
+      <li>
+        <Button
+        size="full"
+        on:click="refs.printable.print()"
+        shortcut="enter"
+        bgColor="#086788"
+        >
+        Print! (press. enter)
+        </Button>
+      </li>
+    {:else}
+      {#if !error}
+        <li class="person__loader">
+          <CircularProgress speed={10} height="50"/>
+        </li>
+      {:else}
+        <li class="person__error">Oops! something went wrong, please try again.</li>
+      {/if}
+    {/if}
+  </ul>
+</div>
+
+<a href="/challenge">
+  <Button bottom size="full">Return</Button>
+</a>
+
+<Printable ref:printable>
+  <p><strong>Name:</strong> { person.name }</p>
+  <p><strong>Gender:</strong> { person.gender }</p>
+  <p><strong>Birth Year:</strong> { person.birth_year }</p>
+  <p><strong>Height:</strong> { person.height }</p>
+  <p><strong>Mass:</strong> { person.mass }</p>
+  <p><strong>Hair Color:</strong> { person.hair_color }</p>
+  <p><strong>Skin Color:</strong> { person.skin_color }</p>
+  <p><strong>Eye Color:</strong> { person.eye_color }</p>
+  <p><strong>Home World:</strong> { person.homeworld }</p>
+</Printable>
+
+<script>
+  import Storage from '@mamba/pos/api/storage.js';
+
+  export default {
+    components: {
+      AppBarModifier: '@mamba/appbar/Modifier.html',
+      Button: '@mamba/button',
+      CircularProgress: '@mamba/progress/Circular.html',
+      Printable: '@mamba/printable',
+    },
+    data() {
+      return {
+        url: 'https://swapi.co/api/people',
+        hasPerson: false,
+        person: {},
+        error: false,
+      };
+    },
+    oncreate() {
+      const { url } = this.get();
+      this.generatePerson(url);
+    },
+    methods: {
+      savePerson(name, url) {
+        const date = this.dateFormatToString(new Date());
+        const person = { name, date, url };
+
+        if (Storage.getItem('people')) {
+          const people = Storage.getItem('people');
+          people.push(person);
+          Storage.setItem('people', people);
+        } else {
+          Storage.setItem('people', [person]);
+        }
+      },
+      randomNumber(num) {
+        return Math.floor(Math.random() * num + 1);
+      },
+      async getPersonChoice(url) {
+        const response = await fetch(url);
+        const data = await response.json();
+        return this.randomNumber(data.count);
+      },
+      async getHomeWorld(url) {
+        const response = await fetch(url);
+        const data = await response.json();
+        return data.name;
+      },
+      async getListOfFilms(films) {
+        const allFilms = await films.map(url => {
+          return fetch(url)
+            .then(r => r.json())
+            .then(film => film.title);
+        });
+        return Promise.all(allFilms).then(completed => completed);
+      },
+      async getListOf(list) {
+        const allItems = await list.map(url => {
+          return fetch(url)
+            .then(r => r.json())
+            .then(item => item.name);
+        });
+        return Promise.all(allItems).then(completed => completed);
+      },
+      dateFormatToString(date) {
+        const dateFormat = new Date(date);
+        return `${dateFormat.getDate()}/${dateFormat.getMonth() +
+          1}/${dateFormat.getFullYear()} at ${dateFormat.getHours()}:${dateFormat.getMinutes()}`;
+      },
+      async formatPersonData(data) {
+        data.homeworld = await this.getHomeWorld(data.homeworld);
+        data.films = await this.getListOfFilms(data.films);
+        data.species = await this.getListOf(data.species);
+        data.vehicles = await this.getListOf(data.vehicles);
+        data.starships = await this.getListOf(data.starships);
+        data.created = this.dateFormatToString(data.created);
+        data.edited = this.dateFormatToString(data.edited);
+
+        return data;
+      },
+      async generatePerson(url) {
+        try {
+          const num = await this.getPersonChoice(url);
+          const response = await fetch(`${url}/${num}`);
+          let data = await response.json();
+
+          data = await this.formatPersonData(data);
+          this.savePerson(data.name, data.url);
+          this.set({ person: data, hasPerson: true });
+        } catch (e) {
+          console.log(e);
+          this.set({ error: true });
+        }
+      },
+    },
+  };
+</script>
+
+<style type="text/postcss">
+  h1 {
+    margin: 0;
+  }
+
+  .person {
+    padding: 1rem 0.4rem;
+    margin-bottom: 3rem;
+  }
+
+  .person__item {
+    padding: 0.4rem 0;
+  }
+
+  .person__info {
+    font-size: 1.07rem;
+  }
+
+  .person__loader {
+    max-width: 60px;
+    margin: 0 auto;
+  }
+
+  .person__error {
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-align: center;
+  }
+</style>
