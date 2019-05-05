@@ -1,0 +1,35 @@
+<AppBarModifier title="STAR WARS - CHALLENGE" />
+
+<div class="challenge">
+  <a href="/generate" shortcut="1">
+    <Button size="full" bgColor="#D4AF37">1 - CHARACTER GENERATOR</Button>
+  </a>
+
+  <a href="/characters" shortcut="2">
+    <Button size="full" bgColor="#333">2 - LIST OF CHARACTERS</Button>
+  </a>
+</div>
+
+<a href="/">
+  <Button bottom size="full">Return</Button>
+</a>
+
+<script>
+  export default {
+    components: {
+      AppBarModifier: '@mamba/appbar/Modifier.html',
+      Button: '@mamba/button',
+    },
+  };
+</script>
+
+<style type="text/postcss">
+  .challenge {
+    padding: 1rem 0.4rem;
+  }
+
+  .challenge > a {
+    display: block;
+    margin: 1rem auto;
+  }
+</style>
