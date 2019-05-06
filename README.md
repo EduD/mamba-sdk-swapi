@@ -7,6 +7,23 @@
 ## Introduction
 Hello! Now you can better control your customers on the space station.
 
+## Build Setup
+
+
+```bash
+# clone the project
+git clone https://github.com/EduD/mamba-sdk-swapi.git
+
+# enter the project directory
+cd mamba-sdk-swapi
+
+# install dependency
+npm install
+
+# Start the dev server
+npm run start
+```
+
 #### Yellow Button
 > Show a single random Star Wars character.
 <p align="center"><img src="https://i.ibb.co/CmvsGvY/generate.gif"></p>
@@ -33,27 +50,6 @@ Recommended:
 
 - [@mamba/cli](https://www.npmjs.com/package/@mamba/cli)
 
-### Building and deploying to the `POS`
-
-1. Generate the *production* app bundle
-
-```shell
-# With the @mamba/cli
-mamba app build
-
-# Without the @mamba/cli
-npm run build
-```
-
-This will generate the `dist/bundle.pos` directory and a `dist/bundle.pos.tar.gz` file, which both contains your Mamba app.
-
-2. Start the local http server
-
-```shell
-npm run serve # Starts the local http server
-```
-
-3. Open the `Develop` app and insert your local server ip and the app will automatically look for the `dist/bundle.pos.tar.gz` and install it.
 
 ### Npm Commands
 
