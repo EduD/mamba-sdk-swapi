@@ -1,15 +1,9 @@
 <p align="center"><img src="https://i.ibb.co/9gjsz5V/starwars.png"></p>
 
 # Front-end Challenge - Star Wars API
-
-[![Greenkeeper badge](https://badges.greenkeeper.io/stone-payments/pos-mamba-app-template.svg)](https://greenkeeper.io/)
-
-## Introduction
 Hello! Now you can better control your customers on the space station.
 
 ## Build Setup
-
-
 ```bash
 # clone the project
 git clone https://github.com/EduD/mamba-sdk-swapi.git
