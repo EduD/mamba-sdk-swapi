@@ -1,7 +1,7 @@
 <p align="center"><img src="https://i.ibb.co/9gjsz5V/starwars.png"></p>
 
 # Front-end Challenge - Star Wars API
-Hello! Now you can better control your customers on the space station.
+Hello! Now you can better control your customers in the space station.
 
 ## Build Setup
 ```bash
